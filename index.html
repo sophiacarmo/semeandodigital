@@ -1,0 +1,58 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semeando Digital - Autenticação</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --background-body: #f4f6f4;
+            --surface-color: #ffffff;
+            --text-main: #263238;
+            --text-muted: #78909c;
+            --border-color: #cfd8dc;
+            --radius-main: 10px;
+            --transition-smooth: all 0.3s ease;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--background-body); color: var(--text-main); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(135deg, rgba(46, 125, 50, 0.1) 0%, rgba(129, 199, 132, 0.2) 100%); }
+        .login-card { background: var(--surface-color); padding: 40px; border-radius: var(--radius-main); box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 420px; text-align: center; }
+        .brand-logo { font-size: 28px; font-weight: 700; color: var(--primary-color); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .brand-subtext { color: var(--text-muted); font-size: 14px; margin-bottom: 32px; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px; }
+        input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 14px; color: var(--text-main); transition: var(--transition-smooth); }
+        input:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15); }
+        .btn { width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; background-color: var(--primary-color); color: white; transition: var(--transition-smooth); text-decoration: none; }
+        .btn:hover { background-color: var(--primary-dark); }
+        @media (max-width: 480px) { .login-card { padding: 24px; } }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="brand-logo"><i class="fa-solid fa-leaf"></i> Semeando Digital</div>
+        <p class="brand-subtext">Sistema de Gestão e Centralização de Dados</p>
+        <form onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+            <div class="form-group">
+                <label for="username">Usuário Institucional</label>
+                <input type="text" id="username" placeholder="ex: secretaria@semeando" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha de Acesso</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn"><i class="fa-solid fa-right-to-bracket"></i> Autenticar no Sistema</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+       

@@ -1,0 +1,106 @@
+<!-- matricula.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semeando Digital - Nova Matrícula</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --background-body: #f4f6f4;
+            --surface-color: #ffffff;
+            --text-main: #263238;
+            --text-muted: #78909c;
+            --border-color: #cfd8dc;
+            --radius-main: 10px;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--background-body); color: var(--text-main); min-height: 100vh; overflow-x: hidden; display: flex; }
+        .sidebar { width: 260px; background-color: var(--primary-dark); color: white; display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; transition: var(--transition-smooth); }
+        .sidebar-header { padding: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .sidebar-menu { list-style: none; padding: 20px 12px; flex-grow: 1; }
+        .sidebar-menu li { margin-bottom: 8px; }
+        .sidebar-menu a { display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: rgba(255, 255, 255, 0.75); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 6px; transition: var(--transition-smooth); cursor: pointer; }
+        .sidebar-menu a:hover, .sidebar-menu li.active a { color: white; background-color: rgba(255, 255, 255, 0.15); }
+        .sidebar-footer { padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; color: rgba(255,255,255,0.6); }
+        .main-content { flex-grow: 1; margin-left: 260px; padding: 40px; width: calc(100% - 260px); transition: var(--transition-smooth); }
+        .top-navbar { display: none; background-color: var(--primary-color); color: white; padding: 16px 20px; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 0; right: 0; z-index: 101; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .page-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .page-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; }
+        .content-panel { background-color: var(--surface-color); border-radius: var(--radius-main); box-shadow: 0 4px 6px rgba(0,0,0,0.02); padding: 30px; }
+        .panel-header { font-size: 18px; font-weight: 600; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+        .form-section-title { font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary-color); margin: 24px 0 16px 0; font-weight: 700; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; }
+        .form-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+        .col-12 { grid-column: span 12; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+        .col-3 { grid-column: span 3; }
+        label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 14px; color: var(--text-main); background-color: var(--surface-color); }
+        input:focus, select:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15); }
+        .compliance-box { background-color: #efebe9; border: 1px solid #d7ccc8; padding: 20px; border-radius: 6px; margin-top: 20px; }
+        .compliance-box p { font-size: 13px; line-height: 1.5; color: #4e342e; margin-bottom: 12px; }
+        .checkbox-container { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13px; font-weight: 500; }
+        .checkbox-container input { width: auto; margin-top: 3px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; background-color: var(--primary-color); color: white; transition: var(--transition-smooth); text-decoration: none; }
+        .btn:hover { background-color: var(--primary-dark); }
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.mobile-open { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; padding: 100px 20px 40px 20px; }
+            .top-navbar { display: flex; }
+        }
+        @media (max-width: 768px) { .col-6, .col-4, .col-3 { grid-column: span 12; } }
+    </style>
+</head>
+<body>
+    <header class="top-navbar">
+        <div style="font-weight: 700; font-size: 18px;"><i class="fa-solid fa-leaf"></i> Semeando</div>
+        <button onclick="document.getElementById('sidebar-menu').classList.toggle('mobile-open');" style="background:none; border:none; color:white; font-size:20px; cursor:pointer;"><i class="fa-solid fa-bars"></i></button>
+    </header>
+    <aside id="sidebar-menu" class="sidebar">
+        <div class="sidebar-header"><i class="fa-solid fa-leaf"></i> Semeando Digital</div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Painel Inicial</a></li>
+            <li class="active"><a href="matricula.html"><i class="fa-solid fa-user-plus"></i> Nova Matrícula</a></li>
+            <li><a href="socio.html"><i class="fa-solid fa-handshake"></i> Ficha de Sócio</a></li>
+            <li><a href="financeiro.html"><i class="fa-solid fa-file-invoice-dollar"></i> Módulo Financeiro</a></li>
+            <li style="margin-top: 40px;"><a href="login.html" style="color: #ff8a80;"><i class="fa-solid fa-power-off"></i> Encerrar Sessão</a></li>
+        </ul>
+        <div class="sidebar-footer"><p>Ambiente: Secretaria Geral</p><p>Escopo: 2026.2</p></div>
+    </aside>
+    <main class="main-content">
+        <h1 class="page-title">Efetuar Matrícula Escolar</h1>
+        <p class="page-subtitle">Geração automatizada de contratos unificados para o Ensino Fundamental.</p>
+        <form class="content-panel" onsubmit="event.preventDefault(); alert('Matrícula realizada com sucesso!'); window.location.href='dashboard.html';">
+            <div class="panel-header">Formulário de Cadastro do Aluno Beneficiário</div>
+            <div class="form-grid">
+                <div class="col-6"><label for="aluno-nome">Nome Completo do Aluno</label><input type="text" id="aluno-nome" placeholder="Helena Martins Vasconcelos" required></div>
+                <div class="col-3"><label for="aluno-nascimento">Data de Nascimento</label><input type="date" id="aluno-nascimento" required></div>
+                <div class="col-3"><label for="aluno-cpf">CPF do Aluno</label><input type="text" id="aluno-cpf" placeholder="000.000.000-00" required></div>
+                <div class="col-4">
+                    <label for="aluno-serie">Série / Ano Corrente</label>
+                    <select id="aluno-serie" onchange="const s=this.value; document.getElementById('aluno-mensalidade-prevista').value=(s==='1')?'R$ 310,00':(s==='')?'R$ 0,00':'R$ 375,00';" required>
+                        <option value="">Selecione o Ano Letivo</option>
+                        <option value="1">1º Ano do Ensino Fundamental</option>
+                        <option value="2">2º Ano do Ensino Fundamental</option>
+                        <option value="3">3º Ano do Ensino Fundamental</option>
+                        <option value="4">4º Ano do Ensino Fundamental</option>
+                        <option value="5">5º Ano do Ensino Fundamental</option>
+                    </select>
+                </div>
+                <div class="col-4"><label for="aluno-turno">Turno Selecionado</label><select id="aluno-turno" required><option value="Vespertino">Vespertino</option><option value="Matutino">Matutino</option></select></div>
+                <div class="col-4"><label for="aluno-mensalidade-prevista">Mensalidade Padrão do Sistema</label><input type="text" id="aluno-mensalidade-prevista" value="R$ 0,00" disabled style="background-color: #eceff1; font-weight:600;"></div>
+                <div class="col-12"><div class="form-section-title">Informações Médicas de Emergência & Segurança (Cláusula 15ª)</div></div>
+                <div class="col-6"><label for="aluno-hospital">Plano de Saúde / Hospital Preferencial</label><input type="text" id="aluno-hospital" placeholder="Ex: Hospital São Domingos" required></div>
+                <div class="col-6"><label for="aluno-retirada">Pessoas Autorizadas para a Busca</label><input type="text" id="aluno-retirada" placeholder="Nome e Identidade dos autorizados" required></div>
+                <div class="col-12"><label for="aluno-restricao">Restrição Alimentar / Intolerâncias</label><input type="text" id="aluno-restricao" placeholder="Ex: Intolerância à lactose"></div>
+                <div class="col-12"><div class="form-section-title">Ficha do Contratante Financeiro (Responsável)</div></div>
+                <div class="col-6"><label for="resp-nome">Nome Completo do Responsável</label><input type="text" id="resp-nome" placeholder="Marina Martins Souza" required></div>
+                <div class="col-3"><label for="resp-cpf">CPF do Responsável</label><input type="text" id="resp-cpf" placeholder="000.000.000-00" required></div>

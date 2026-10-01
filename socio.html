@@ -1,0 +1,100 @@
+```html
+<!-- socio.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semeando Digital - Inclusão de Sócio</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --background-body: #f4f6f4;
+            --surface-color: #ffffff;
+            --text-main: #263238;
+            --text-muted: #78909c;
+            --border-color: #cfd8dc;
+            --radius-main: 10px;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--background-body); color: var(--text-main); min-height: 100vh; overflow-x: hidden; display: flex; }
+        .sidebar { width: 260px; background-color: var(--primary-dark); color: white; display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; transition: var(--transition-smooth); }
+        .sidebar-header { padding: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .sidebar-menu { list-style: none; padding: 20px 12px; flex-grow: 1; }
+        .sidebar-menu li { margin-bottom: 8px; }
+        .sidebar-menu a { display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: rgba(255, 255, 255, 0.75); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 6px; transition: var(--transition-smooth); cursor: pointer; }
+        .sidebar-menu a:hover, .sidebar-menu li.active a { color: white; background-color: rgba(255, 255, 255, 0.15); }
+        .sidebar-footer { padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; color: rgba(255,255,255,0.6); }
+        .main-content { flex-grow: 1; margin-left: 260px; padding: 40px; width: calc(100% - 260px); transition: var(--transition-smooth); }
+        .top-navbar { display: none; background-color: var(--primary-color); color: white; padding: 16px 20px; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 0; right: 0; z-index: 101; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .page-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .page-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; }
+        .content-panel { background-color: var(--surface-color); border-radius: var(--radius-main); box-shadow: 0 4px 6px rgba(0,0,0,0.02); padding: 30px; }
+        .panel-header { font-size: 18px; font-weight: 600; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+        .form-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+        .col-12 { grid-column: span 12; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+        .col-3 { grid-column: span 3; }
+        label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 14px; color: var(--text-main); background-color: var(--surface-color); }
+        input:focus, select:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; background-color: var(--primary-color); color: white; transition: var(--transition-smooth); text-decoration: none; }
+        .btn:hover { background-color: var(--primary-dark); }
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.mobile-open { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; padding: 100px 20px 40px 20px; }
+            .top-navbar { display: flex; }
+        }
+        @media (max-width: 768px) { .col-6, .col-4, .col-3 { grid-column: span 12; } }
+    </style>
+</head>
+<body>
+    <header class="top-navbar">
+        <div style="font-weight: 700; font-size: 18px;"><i class="fa-solid fa-leaf"></i> Semeando</div>
+        <button onclick="document.getElementById('sidebar-menu').classList.toggle('mobile-open');" style="background:none; border:none; color:white; font-size:20px; cursor:pointer;"><i class="fa-solid fa-bars"></i></button>
+    </header>
+    <aside id="sidebar-menu" class="sidebar">
+        <div class="sidebar-header"><i class="fa-solid fa-leaf"></i> Semeando Digital</div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Painel Inicial</a></li>
+            <li><a href="matricula.html"><i class="fa-solid fa-user-plus"></i> Nova Matrícula</a></li>
+            <li class="active"><a href="socio.html"><i class="fa-solid fa-handshake"></i> Ficha de Sócio</a></li>
+            <li><a href="financeiro.html"><i class="fa-solid fa-file-invoice-dollar"></i> Módulo Financeiro</a></li>
+            <li style="margin-top: 40px;"><a href="login.html" style="color: #ff8a80;"><i class="fa-solid fa-power-off"></i> Encerrar Sessão</a></li>
+        </ul>
+        <div class="sidebar-footer"><p>Ambiente: Secretaria Geral</p><p>Escopo: 2026.2</p></div>
+    </aside>
+    <main class="main-content">
+        <h1 class="page-title">Inclusão de Sócio Contribuinte</h1>
+        <p class="page-subtitle">Gestão de associados vinculados à Educação Infantil do Instituto Educacional Semeando.</p>
+        <form class="content-panel" onsubmit="event.preventDefault(); alert('Ficha de Sócio salva com sucesso!'); window.location.href='dashboard.html';">
+            <div class="panel-header">Ficha Cadastral de Associação</div>
+            <div class="form-grid">
+                <div class="col-6"><label for="socio-nome">Nome Completo do Associado</label><input type="text" id="socio-nome" required></div>
+                <div class="col-3"><label for="socio-cpf">CPF</label><input type="text" id="socio-cpf" placeholder="000.000.000-00" required></div>
+                <div class="col-3"><label for="socio-nascimento">Data de Nascimento</label><input type="date" required></div>
+                <div class="col-4">
+                    <label for="socio-tipo">Modalidade de Sócio</label>
+                    <select id="socio-tipo" required>
+                        <option value="Efetivo">Sócio Efetivo</option>
+                        <option value="Fundador">Sócio Fundador</option>
+                        <option value="Mantenedor">Sócio Mantenedor (C I - Contribuinte)</option>
+                        <option value="Apoiador">Sócio Apoiador (C II)</option>
+                    </select>
+                </div>
+                <div class="col-4"><label for="socio-taxa">Taxa de Associação Fixada (Anual)</label><input type="text" id="socio-taxa" value="R$ 125,00" disabled style="background-color: #eceff1; font-weight: 600;"></div>
+                <div class="col-4"><label for="socio-data">Data de Ingresso</label><input type="date" required></div>
+                <div class="col-12"><label for="socio-endereco">Endereço Residencial Unificado Corporativo</label><input type="text" id="socio-endereco" value="Avenida Alphaville, nº 25, Bairro Pontal da Ilha, São Luís - MA" disabled style="background-color: #f5f5f5; color: #555;"></div>
+            </div>
+            <div style="margin-top: 24px; text-align: right;"><button type="submit" class="btn"><i class="fa-solid fa-floppy-disk"></i> Validar e Salvar Associação</button></div>
+        </form>
+    </main>
+</body>
+</html>
